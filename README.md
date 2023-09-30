@@ -41,7 +41,13 @@ pip install -r requirements.txt
 
 ### Problema 1
 
-> TODO
+Correr el archivo `EJ1.py`
+
+```sh
+python EJ1.py
+```
+
+Como salida se visualizará la imagen previa al ecualizado y la misma imagen luego de haberse aplicado la ecualización local.
 
 ### Problema 2
 
