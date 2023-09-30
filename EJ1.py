@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-def local_histogram_equalization(image, window_size, threshold):
+def local_histogram_equalization(image, window_size):
     # Obtener dimensiones de la imagen
     height, width = image.shape
 
@@ -27,29 +27,25 @@ def local_histogram_equalization(image, window_size, threshold):
             # Extraer la ventana de la imagen con bordes
             window = image_with_border[y_start:y_end, x_start:x_end]
 
-            # Aplicar umbral para eliminar píxeles con intensidad baja
-            window_thresholded = cv2.threshold(window, threshold, 255, cv2.THRESH_BINARY)[1]
-
             # Aplicar ecualización de histograma local usando cv2.equalizeHist
-            window_equalized = cv2.equalizeHist(window_thresholded)
-            window_equalized.shape
+            window_equalized = cv2.equalizeHist(window)
+
             # Asignar la ventana ecualizada al resultado
             result_image[y - half_window_size, x - half_window_size] = window_equalized[half_window_size, half_window_size]
 
     return result_image
 
 # Cargar la imagen
-image = cv2.imread('img/Imagen_con_detalles_escondidos.tif', cv2.IMREAD_GRAYSCALE)
+image = cv2.imread('Imagen_con_detalles_escondidos.tif', cv2.IMREAD_GRAYSCALE)
 
 # Tamaño de la ventana de procesamiento (ajustar según sea necesario)
-window_size = 15
-
-# Umbral para eliminar píxeles con intensidad baja (ajustar según sea necesario)
-threshold = 1
+window_size = 21
 
 # Aplicar la ecualización local del histograma con umbral
-result_image = local_histogram_equalization(image, window_size, threshold)
+result_image = local_histogram_equalization(image, window_size)
 
+#Eliminar ruido 
+result_image = cv2.medianBlur(result_image, 3)
 
 # Mostrar la imagen original y la imagen procesada
 cv2.imshow('Imagen Original', image)
