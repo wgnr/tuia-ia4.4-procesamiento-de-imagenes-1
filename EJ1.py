@@ -36,7 +36,7 @@ def local_histogram_equalization(image, window_size):
     return result_image
 
 # Cargar la imagen
-image = cv2.imread('Imagen_con_detalles_escondidos.tif', cv2.IMREAD_GRAYSCALE)
+image = cv2.imread('img/Imagen_con_detalles_escondidos.tif', cv2.IMREAD_GRAYSCALE)
 
 # Tamaño de la ventana de procesamiento (ajustar según sea necesario)
 window_size = 21
