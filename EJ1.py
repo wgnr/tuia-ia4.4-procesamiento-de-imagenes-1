@@ -42,15 +42,19 @@ image = cv2.imread('img/Imagen_con_detalles_escondidos.tif', cv2.IMREAD_GRAYSCAL
 window_size = 21
 
 # Aplicar la ecualización local del histograma con umbral
-result_image = local_histogram_equalization(image, window_size)
+equalized_image = local_histogram_equalization(image, window_size)
 
 #Eliminar ruido 
-result_image = cv2.medianBlur(result_image, 3)
+result_image = cv2.medianBlur(equalized_image, 3)
 
 # Mostrar la imagen original y la imagen procesada
-cv2.imshow('Imagen Original', image)
-cv2.imshow('Imagen Procesada', result_image)
-plt.imshow(result_image, cmap='gray')
-plt.show()
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+fig, axs = plt.subplots(1,3, figsize=(10,4), sharex=True, sharey=True)
+fig.suptitle("Ecualización local de histograma")
+axs[0].imshow(image, cmap='gray')
+axs[0].set_title("Imagen Original")
+axs[1].imshow(equalized_image, cmap='gray')
+axs[1].set_title("Imagen Ecualizada")
+axs[2].imshow(result_image, cmap='gray')
+axs[2].set_title("Imagen Suavizada")
+fig.tight_layout()
+fig.show()
